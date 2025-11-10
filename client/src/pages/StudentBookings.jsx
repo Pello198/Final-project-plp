@@ -7,7 +7,7 @@ export default function StudentBookings() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    fetch("${API_URL}/api/bookings?student=${user._id}", {
+    fetch(`${API_URL}/api/bookings?student=${user._id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

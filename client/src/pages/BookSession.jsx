@@ -21,7 +21,7 @@ export default function BookSession() {
       notes,
     };
   const API_URL = import.meta.env.VITE_API_URL;
-    await fetch('${API_URL}/api/bookings', {
+    await fetch(`${API_URL}/api/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

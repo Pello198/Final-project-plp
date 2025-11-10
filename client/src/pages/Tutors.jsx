@@ -11,7 +11,7 @@ export default function Tutors() {
     setLoading(true);
     try {
         const API_URL = import.meta.env.VITE_API_URL;
-      let url = "${API_URL}/api/tutors";
+      let url = `${API_URL}/api/tutors`;
       if (subjectFilter) url += `?subject=${encodeURIComponent(subjectFilter)}`;
 
       const res = await fetch(url);

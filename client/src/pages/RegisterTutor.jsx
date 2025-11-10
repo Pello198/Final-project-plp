@@ -22,7 +22,7 @@ export default function RegisterTutor() {
       role: "tutor",
     };
   const API_URL = import.meta.env.VITE_API_URL;
-    const res = await fetch('${API_URL}/api/auth/register', {
+    const res = await fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
