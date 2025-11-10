@@ -1,3 +1,3 @@
 // src/config.js
-export const BASE_URL = "http://localhost:5000/api"; 
+export const BASE_URL = "https://final-project-plp-gucn.onrender.com"
 // Replace this with your deployed backend URL when deploying

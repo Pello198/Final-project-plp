@@ -10,17 +10,8 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
-const allowedOrigins = [
-  'https://final-project-plp-omega.vercel.app', // <--- Your deployed frontend URL
-  'http://localhost:3000',
-  'http://localhost:5173', 
-];
-const corsOptions = {
-  origin: allowedOrigins,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Ensure all needed methods are allowed
-  credentials: true, // IMPORTANT: If your login uses cookies or session auth
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 

@@ -7,6 +7,7 @@ export default function TutorBookings() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
+    const API_URL = import.meta.env.VITE_API_URL;
     fetch(`${API_URL}/api/bookings?tutor=${ user._id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

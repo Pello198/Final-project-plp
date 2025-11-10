@@ -1,12 +1,12 @@
 // src/pages/StudentBookings.jsx
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
-
 export default function StudentBookings() {
   const [bookings, setBookings] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
+    const API_URL = import.meta.env.VITE_API_URL;
     fetch(`${API_URL}/api/bookings?student=${user._id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

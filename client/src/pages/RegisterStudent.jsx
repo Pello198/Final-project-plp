@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-
+import { Link } from "react-router-dom";
 export default function RegisterStudent() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
