@@ -12,7 +12,7 @@ const AllUsers = () => {
         const API_URL = import.meta.env.VITE_API_URL;
 
         // Use backticks for template literal
-        const res = await axios.get(`${API_URL}/api/users/all`, {
+        const res = await axios.get(`${API_URL}/api/users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

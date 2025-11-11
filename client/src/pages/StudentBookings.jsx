@@ -7,7 +7,7 @@ export default function StudentBookings() {
 
   useEffect(() => {
     const API_URL = import.meta.env.VITE_API_URL;
-    fetch(`${API_URL}/api/bookings?student=${user._id}`, {
+    fetch(`${API_URL}/api/bookings`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

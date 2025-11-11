@@ -1,17 +1,20 @@
 // src/pages/RegisterStudent.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+
 export default function RegisterStudent() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
     const payload = {
       name,
@@ -21,14 +24,19 @@ export default function RegisterStudent() {
     };
 
     try {
-        const API_URL = import.meta.env.VITE_API_URL;
+      const API_URL = import.meta.env.VITE_API_URL; // Make sure this points to your Render backend
       const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json(); // Try parsing JSON
+      } catch {
+        data = { message: "Server did not return valid JSON" };
+      }
 
       if (res.ok) {
         alert("Student registered successfully!");
@@ -38,6 +46,8 @@ export default function RegisterStudent() {
       }
     } catch (err) {
       setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,7 +58,7 @@ export default function RegisterStudent() {
         className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4"
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Student Registration</h2>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 text-center">{error}</p>}
 
         <input
           type="text"
@@ -75,20 +85,17 @@ export default function RegisterStudent() {
           required
         />
 
-        <Button type="submit">Register</Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </Button>
+
+        <p className="mt-4 text-sm text-gray-600 text-center">
+          Are you a tutor?{" "}
+          <Link to="/register/tutor" className="text-blue-600 hover:underline">
+            Register here
+          </Link>
+        </p>
       </form>
-      <div flex items-center justify-center>
-        <p className="mt-4 text-sm text-gray-600">
-      Are you a tutor?{" "}
-      <Link
-        to="/register/tutor"
-        className="text-blue-600 hover:underline"
-      >
-        Register here
-      </Link>
-    </p>
-      </div>
-       
     </div>
   );
 }

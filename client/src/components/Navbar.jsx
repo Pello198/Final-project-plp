@@ -8,7 +8,8 @@ export default function Navbar() {
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
       <Link to="/" className="font-bold text-xl">
-        Peer Tutoring
+        Peer Tutoring 
+          
       </Link>
       <Link to="/users" className="mr-4 hover:underline transition">All Users</Link>
 
@@ -19,7 +20,7 @@ export default function Navbar() {
               to="/logout"
               className="flex items-center gap-2 bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition"
             >
-              <span>{user.name}</span>
+            <span>{user.name}</span>
               <span>Logout</span>
             </Link>
           </>

@@ -16,7 +16,11 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const { data } = await api.get("/users/profile");
+         const token = localStorage.getItem("token");
+      const API_URL = import.meta.env.VITE_API_URL; 
+      const { data } = await api.get(`${API_URL}/users/profile`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
         setName(data.name);
         setEmail(data.email);
       } catch (err) {

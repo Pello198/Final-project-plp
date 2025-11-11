@@ -14,7 +14,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("/auth/login", { email, password });
+        const API_URL = import.meta.env.VITE_API_URL;
+      const { data } = await api.post(`${API_URL}/api/auth/login`, { email, password });
       login(data);
       navigate("/dashboard");
     } catch (err) {
@@ -44,7 +45,7 @@ export default function Login() {
         />
         <Button type="submit">Login</Button>
       </form>
-      <div flex items-center justify-center><p className="mt-4 text-sm text-gray-600">
+      <div className=" flex items-center justify-center"><p className="mt-4 text-sm text-gray-600">
       Don't have an account?{" "}
       <Link
         to="/register/student"
