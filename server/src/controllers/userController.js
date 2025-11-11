@@ -1,4 +1,7 @@
 const User = require('../models/User');
+ // make sure the path is correct
+const TutorProfile = require('../models/TutorProfile'); // if you use this
+const generateToken = require('../utils/generateToken'); // if you use this
 
 // @desc    Get logged-in user's profile
 // @route   GET /api/users/profile
