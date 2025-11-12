@@ -39,7 +39,7 @@ export default function Profile() {
     const payload = { name, email };
     if (password) payload.password = password;
 
-    const { data } = await api.put(`${API_URL}/users/profile`, payload, {
+    const { data } = await api.put(`${API_URL}/api/users/profile`, payload, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
