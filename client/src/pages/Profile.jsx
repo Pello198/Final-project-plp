@@ -31,21 +31,30 @@ export default function Profile() {
   }, []);
 
   const handleUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = { name, email };
-      if (password) payload.password = password; // only send password if changed
-      const { data } = await api.put("/users/profile", payload);
+  e.preventDefault();
+  try {
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
 
-      // Update auth context with new info
-      login({ ...user, ...data });
+    const payload = { name, email };
+    if (password) payload.password = password;
 
-      setMessage("Profile updated successfully!");
-      setPassword("");
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to update profile");
-    }
-  };
+    const { data } = await api.put(`${API_URL}/users/profile`, payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    // Save new token to localStorage
+    localStorage.setItem("token", data.token);
+
+    // Update context
+    login({ ...user, ...data });
+
+    setMessage("Profile updated successfully!");
+    setPassword("");
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to update profile");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">

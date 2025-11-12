@@ -21,29 +21,7 @@ const getUserProfile = async (req, res) => {
 // @desc    Update logged-in user's profile
 // @route   PUT /api/users/profile
 // @access  Private
-const updateUserProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const { name, email, password } = req.body;
-    if (name) user.name = name;
-    if (email) user.email = email;
-    if (password) user.password = password; // hashed in model pre-save
-
-    await user.save();
-
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error', error: err.message });
-  }
-};
 
 // @desc    Get all users (admin purpose)
 // @route   GET /api/users
@@ -58,6 +36,32 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const updateUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const { name, email, password } = req.body;
+
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (password) user.password = password; // Will be hashed in pre-save middleware
+
+    const updatedUser = await user.save();
+
+    // Return updated user and new token
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      token: generateToken(updatedUser._id),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
 // @desc    Get user by ID
 // @route   GET /api/users/:id
 // @access  Private/Admin
